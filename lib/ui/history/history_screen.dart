@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forex_trader/data/repositories/forex_repository.dart';
 import 'package:forex_trader/domain/models/forex_pair.dart';
-import 'package:forex_trader/ui/history/bloc/History_state.dart';
+import 'package:forex_trader/ui/history/bloc/history_state.dart';
 import 'package:forex_trader/ui/history/bloc/history_cubit.dart';
 
 class HistoryScreen extends StatelessWidget {
