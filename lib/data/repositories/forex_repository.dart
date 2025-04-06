@@ -1,16 +1,11 @@
-import '../models/forex_pair.dart';
-import '../services/finnhub_service.dart';
 
-class ForexRepository {
-  final FinnhubService _service;
 
-  ForexRepository(this._service);
+import 'package:forex_trader/utils/result.dart';
 
-  Future<List<ForexPair>> getForexPairs() {
-    return _service.fetchForexPairs();
-  }
+import '../../domain/models/forex_pair.dart';
 
-  Future<List<Map<String, dynamic>>> getHistoricalData(String symbol) {
-    return _service.fetchHistoricalData(symbol);
-  }
+abstract class ForexRepository {
+  Future<Result<List<ForexPair>>> getForexPairs();
+
+  Future<Result<List<Map<String, dynamic>>>> getHistoricalData(String symbol);
 }
