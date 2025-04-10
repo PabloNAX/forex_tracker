@@ -12,14 +12,13 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Placeholder for the history graph and data
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${forexPair.symbol} History'),
-      ),
+      appBar: AppBar(title: Text('${forexPair.symbol} History')),
       body: BlocProvider(
-        create: (context) => HistoryCubit(RepositoryProvider.of<ForexRepository>(context))
-          ..loadData(forexPair.symbol),
+        create:
+            (context) =>
+                HistoryCubit(RepositoryProvider.of<ForexRepository>(context))
+                  ..loadData(forexPair.symbol),
         child: const HistoryView(),
       ),
     );
@@ -33,25 +32,22 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryCubit, HistoryState>(
       builder: (context, state) {
-        if (state is HistoryLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is HistoryLoaded) {
-          // Here you would typically build your graph using the data
-          // For now, we will just display the data in a ListView
-          return ListView.builder(
+        // Используем pattern matching из Dart 3
+        return switch (state) {
+          HistoryInitial() => const SizedBox.shrink(),
+          HistoryLoading() => const Center(child: CircularProgressIndicator()),
+          HistoryLoaded() => ListView.builder(
             itemCount: state.data.length,
             itemBuilder: (context, index) {
               final dataPoint = state.data[index];
               return ListTile(
-                title: Text('Date: ${dataPoint['date']}'),
-                subtitle: Text('Price: ${dataPoint['price']}'),
+                title: Text('Date: ${dataPoint.dateTime}'),
+                subtitle: Text('Price: ${dataPoint.high}'),
               );
             },
-          );
-        } else if (state is HistoryError) {
-          return Center(child: Text(state.message));
-        }
-        return const SizedBox.shrink();
+          ),
+          HistoryError() => Center(child: Text(state.message)),
+        };
       },
     );
   }

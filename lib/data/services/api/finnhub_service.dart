@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 import 'package:dio/dio.dart';
+import 'package:forex_trader/data/services/api/models/forex_candles/forex_candles_dto.dart';
 import 'package:logging/logging.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -11,7 +12,7 @@ abstract class FinnhubService {
   Future<Result<List<ForexPairDto>>> fetchForexPairs();
 
   /// TODO Question вот тут надо ли использовать те же имена параметров и типы symbol, resolution что и в иплментации? или нет?
-  Future<Result<Map<String, dynamic>>> fetchHistoricalData({
+  Future<Result<ForexCandlesDto>> fetchHistoricalData({
     required String symbol,
     String resolution = "D",
     DateTime? from,
@@ -74,7 +75,7 @@ class FinnhubServiceImpl implements FinnhubService {
   /// Docs: https://finnhub.io/docs/api/forex-candles
   /// /forex/candle?symbol=OANDA:EUR_USD&resolution=D&from=1572651390&to=1575243390
   @override
-  Future<Result<Map<String, List<num>>>> fetchHistoricalData({
+  Future<Result<ForexCandlesDto>> fetchHistoricalData({
     required String symbol,
     String resolution = "D",
     DateTime? from,

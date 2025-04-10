@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:forex_trader/ui/core/localization/string_hardcoded.dart';
 import 'package:forex_trader/ui/home/view/home_screen.dart';
 import 'history/history_screen.dart';
 
@@ -68,7 +69,9 @@ class _MainPageState extends State<MainPage> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('This menu item is disabled')),
+        SnackBar(content: 
+        Text('This menu item is disabled'.hardcoded)
+        ),
       );
     }
   }
