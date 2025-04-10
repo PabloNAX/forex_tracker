@@ -7,6 +7,9 @@ import '../../domain/models/forex_pair.dart';
 import '../services/api/finnhub_service.dart';
 import 'forex_repository.dart';
 
+
+///TODO question: вопрос норм что у меня один репозиторий для двух разных фитчей и экранов? 
+///или все таки надо чтобы было два репозитория под каждую фитчу? и как рассуждать в такой ситуации?
 class ForexRepositoryRemote implements ForexRepository {
   ForexRepositoryRemote({required FinnhubService finnhubService})
     : _finnhubService = finnhubService;
